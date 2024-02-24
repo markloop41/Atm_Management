@@ -4,52 +4,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AtmoperationImpl implements AtmoperationInterf {
-    ATM atm=new ATM();
-    Map<Double,String>ministat=new HashMap<>();
+    ATM atm = new ATM();
+    Map<Double,String> mini_stat = new HashMap<>();
 
     @Override
     public void viewBalance() {
-        System.out.println("Available Balance is:"+atm.getBalance());
+        System.out.println("Available Balance is : "+atm.getBalance());
     }
 
     @Override
     public void withdrawAmount(double withdrawAmount) {
-        // TODO Auto-generated method stub
         if(withdrawAmount%500==0) {
             if(withdrawAmount<=atm.getBalance()) {
-                ministat.put(withdrawAmount,"Amountwithdrawn");
-                System.out.println(withdrawAmount+"collect the cash");
-                viewBalance();
+                mini_stat.put(withdrawAmount," Amount withdrawn");
+                System.out.println(withdrawAmount+" Collect the cash !!!!!");
                 atm.setBalance(atm.getBalance()-withdrawAmount);
+                viewBalance();
             }
-            else {System.out.println("Insufficient balance");}
+            else{
+                System.out.println("Insufficient balance.......");
+            }
         }
-
         else {
             System.out.println("Please Enter the Amount in multiple of 500S");
-
-
         }
     }
     @Override
     public void depositAmount(double depositAmount) {
-        ministat.put(depositAmount,"Amount Deposited");
-        // TODO Auto-generated method stub
-        System.out.println(depositAmount+"Deposited Sucessfully!!");
+        mini_stat.put(depositAmount," Amount Deposited");
+        System.out.println(depositAmount+" Deposited Successfully !!!");
         atm.setBalance(atm.getBalance()+depositAmount);
         viewBalance();
     }
 
     @Override
     public void viewMiniStatement() {
-        // TODO Auto-generated method stub
-        for (Map.Entry<Double,String>m:ministat.entrySet()) {
-            System.out.println(m.getKey()+""+m.getValue());
-
+        if(atm.getBalance()!=0) {
+            for (Map.Entry<Double, String> m : mini_stat.entrySet()) {
+                System.out.println(m.getKey() + " " + m.getValue());
+            }
+        } else{
+            System.out.println("No Transactions to show....");
         }
-
     }
-
-
-
 }
